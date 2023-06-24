@@ -1,0 +1,159 @@
+
+
+Poniżej scenariusz do raportu komunikacji z serwerem:
+
+Wprowadzenie przedmiotów do systemu w podanej kolejności:
+
+Metoda: POST
+
+Adres zasobu: http://localhost:8080/api/subjects
+
+Nagłówki: Content-Type: application/json
+
+Request Body:
+
+json
+Copy code
+{
+  "nazwa": "Metodologie obiektowe",
+  "ects": 2,
+  "sala": "216",
+  "egzamin": true
+}
+Odpowiedź:
+
+less
+Copy code
+HTTP Code: 200 OK
+Body: brak
+Metoda: POST
+
+Adres zasobu: http://localhost:8080/api/subjects
+
+Nagłówki: Content-Type: application/json
+
+Request Body:
+
+json
+Copy code
+{
+  "nazwa": "Testowanie oprogramowania",
+  "ects": 1,
+  "sala": "216",
+  "egzamin": false
+}
+Odpowiedź:
+
+less
+Copy code
+HTTP Code: 200 OK
+Body: brak
+(Kontynuuj dodawanie pozostałych przedmiotów w podobny sposób)
+
+Pobranie wszystkich przedmiotów:
+
+Metoda: GET
+Adres zasobu: http://localhost:8080/api/subjects
+Odpowiedź:
+less
+Copy code
+HTTP Code: 200 OK
+Body:
+[  {    "id": 1,    "nazwa": "Metodologie obiektowe", "ects": 2,    "sala": "216",    "egzamin": true  },
+      {    "id": 2,    "nazwa": "Testowanie oprogramowania", "ects": 1,    "sala": "216",    "egzamin": false  },
+            (Pozostałe przedmioty)]
+Pobranie przedmiotów, które mają egzamin:
+
+Metoda: GET
+Adres zasobu: http://localhost:8080/api/subjects?egzamin=true
+Odpowiedź:
+less
+Copy code
+HTTP Code: 200 OK
+Body:
+[  {    "id": 1,    "nazwa": "Metodologie obiektowe",    "ects": 2,    "sala": "216",    "egzamin": true  },
+  {    "id": 6,    "nazwa": "Technologie komponentowe i sieciowe",    "ects": 2,    "sala": "208",    "egzamin": true  }]
+Pobranie przedmiotów, które odbywają się w sali 216:
+
+Metoda: GET
+Adres zasobu: http://localhost:8080/api/subjects?sala=216
+Odpowiedź:
+less
+Copy code
+HTTP Code: 200 OK
+Body:
+[  {    "id": 1,    "nazwa": "Metodologie obiektowe",    "ects": 2,    "sala": "216",    "egzamin": true  },
+ {    "id": 2,    "nazwa": "Testowanie oprogramowania",    "ects": 1,    "sala": "216",    "egzamin": false  },  (Inne przedmioty)]
+Pobranie przedmiotów, które nie mają egzaminu i odbywają się w sali 208:
+
+Metoda: GET
+Adres zasobu: http://localhost:8080/api/subjects?egzamin=false&sala=208
+Odpowiedź:
+less
+Copy code
+HTTP Code: 200 OK
+Body:
+[  {    "id": 5,    "nazwa": "Zaawansowane technologie bazodanowe",    "ects": 3,    "sala": "208",    "egzamin": false  },  (Inne przedmioty)]
+Pobranie przedmiotu o identyfikatorze 3:
+
+Metoda: GET
+Adres zasobu: http://localhost:8080/api/subjects/3
+Odpowiedź:
+css
+Copy code
+HTTP Code: 200 OK
+Body:
+{
+  "id": 3,
+  "nazwa": "Technologie i aplikacje webowe",
+  "ects": 3,
+  "sala": "208",
+  "egzamin": false
+}
+Pobranie przedmiotu o identyfikatorze 15 (nieistniejący):
+
+Metoda: GET
+Adres zasobu: http://localhost:8080/api/subjects/15
+Odpowiedź:
+less
+Copy code
+HTTP Code: 404 Not Found
+Body: brak
+Usunięcie przedmiotu o identyfikatorze 2:
+
+Metoda: DELETE
+Adres zasobu: http://localhost:8080/api/subjects/2
+Odpowiedź:
+yaml
+Copy code
+HTTP Code: 204 No Content
+Body: brak
+Pobranie wszystkich przedmiotów:
+
+Metoda: GET
+Adres zasobu: http://localhost:8080/api/subjects
+Odpowiedź:
+less
+Copy code
+HTTP Code: 200 OK
+Body:
+[  {    "id": 1,    "nazwa": "Metodologie obiektowe",    "ects": 2,    "sala": "216",    "egzamin": true  },
+  {    "id": 3,    "nazwa": "Technologie i aplikacje webowe",    "ects": 3,    "sala": "208",    "egzamin": false  },  (Inne przedmioty)]
+Usunięcie wszystkich przedmiotów:
+
+Metoda: DELETE
+Adres zasobu: http://localhost:8080/api/subjects
+Odpowiedź:
+yaml
+Copy code
+HTTP Code: 204 No Content
+Body: brak
+Pobranie wszystkich przedmiotów:
+
+Metoda: GET
+Adres zasobu: http://localhost:8080/api/subjects
+Odpowiedź:
+less
+Copy code
+HTTP Code: 200 OK
+Body: []
