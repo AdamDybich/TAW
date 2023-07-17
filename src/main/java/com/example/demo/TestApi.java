@@ -13,7 +13,7 @@ import java.util.List;
 public class TestApi {
 
     @Autowired
-    private ActivityDatabase activityDatabase;
+    private SubjectDatabase subjectDatabase;
 
     @GetMapping("/test")
 
@@ -23,23 +23,24 @@ public class TestApi {
         return "Hello World!";
 
         }
-        @PostMapping(value = "Activities",
+        @PostMapping(value = "Subjects",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public void addNewActivity(@RequestBody Activity activity) {
-        activityDatabase.addActivity(activity);
+    public void addNewSubject(@RequestBody Subject activity) {
+            subjectDatabase.addSubject(activity);
     }
-    @GetMapping(value = "Activities",
+    @GetMapping(value = "Subjects",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Activity> getActivitiList(){
-        return activityDatabase.getActivityList();
-
+    public List<Subject> getActivitiList(@RequestParam(required = false) Boolean egzamin, @RequestParam(required = false) String sala){
+        return subjectDatabase.getSubjectList(egzamin, sala);
     }
 
-    @DeleteMapping(value = "Activities")
+
+
+    @DeleteMapping(value = "Subjects")
     public void deleteAll(){
-        activityDatabase.deleteAll();
+        subjectDatabase.deleteAll();
     }
 
 }
